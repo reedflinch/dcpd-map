@@ -33,5 +33,5 @@ if __name__ == '__main__':
 
 	myStreamListener = MyStreamListener()
 	stream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
-	stream.filter(follow=[285198536], async=True)
+	stream.filter(follow=['285198536'], async=True)
 	# stream.filter(=['#OregonUnderAttack'])
