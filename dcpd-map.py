@@ -14,6 +14,10 @@ class MyStreamListener(tweepy.StreamListener):
 
 	def on_status(self, status):
 		print('Tweet text: ' + status.text)
+		with open('tweets.txt', 'a') as f:
+			en_text = status.text.encode('utf-8')
+			f.write(en_text + '\n')
+			return True
 		return True
 
 	def on_error(self, status_code):
@@ -33,5 +37,5 @@ if __name__ == '__main__':
 
 	myStreamListener = MyStreamListener()
 	stream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
-	stream.filter(follow=['285198536'], async=True)
-	# stream.filter(=['#OregonUnderAttack'])
+	# stream.filter(follow=['285198536'], async=True)
+	stream.filter(track=['#OregonUnderAttack'])
