@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import tweepy
-
-CONSUMER_KEY = '2ZZoK4yZVYzMQcGfaQx8tZaab'
-CONSUMER_SECRET = '902aHEZCZK3QdTNDArIjBYtyWdx7VZayVQvwaDvI4W07x88bNL'
-ACCESS_KEY = '300492257-lf1Zn55I4odPrEqFYCyB5ncaeo7i279mdGLoJqGe'
-ACCESS_SECRET = 'cOj2DyVl5Dal613C9FpibrdrTl1WC86FLzDL7G9Nm4Fax'
+import tweepy, yaml
 
 # create a class inheriting from tweepy's StreamListener
 class MyStreamListener(tweepy.StreamListener):
@@ -30,6 +25,13 @@ class MyStreamListener(tweepy.StreamListener):
 
 # if dcpd-map.py is run as the main function, i.e. via command line
 if __name__ == '__main__':
+	# pull the app's twitter API credentials from config.yml file
+	with open('config.yml') as f:
+		doc = yaml.load(f)
+		CONSUMER_KEY = doc["CONSUMER_KEY"]
+		CONSUMER_SECRET = doc["CONSUMER_SECRET"]
+		ACCESS_KEY = doc["ACCESS_KEY"]
+		ACCESS_SECRET = doc["ACCESS_SECRET"]
 	auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 	auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 

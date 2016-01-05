@@ -1,2 +1,4 @@
 # tweets text file
 tweets.*
+# config file
+config.yml
