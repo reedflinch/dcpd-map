@@ -1,19 +1,36 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import tweepy, yaml
+import tweepy, yaml, time, os
 
 # create a class inheriting from tweepy's StreamListener
 class MyStreamListener(tweepy.StreamListener):
 	# handles data received from the stream
 
+	def __init__(self):
+
+		self.tweet_status = []
+
+	# def on_status(self, status):
+	# 	print('Tweet text: ' + status.text)
+	# 	# with open('tweets.json', 'a') as f:
+	# 	# 	f.write(status._json + '\n')
+	# 	# 	return True
+
+	# 	return True
+
 	def on_status(self, status):
-		print('Tweet text: ' + status.text)
-		with open('tweets.txt', 'a') as f:
-			en_text = status.text.encode('utf-8')
-			f.write(en_text + '\n')
-			return True
-		return True
+		saveFile = open('tweets.json', 'a')
+
+		self.tweet_status.append(status)
+
+		saveFile = open('tweets.json', 'w')
+		saveFile.write(u'[\n')
+		saveFile.write(','.join(self.tweet_status))
+		saveFile.write(u'\n]')
+		saveFile.close()
+		exit()
+
 
 	def on_error(self, status_code):
 		print('Received an error with status code: ' + str(status_code))
@@ -21,7 +38,7 @@ class MyStreamListener(tweepy.StreamListener):
 
 	def on_timeout(self):
 		print('Timeout...')
-		return True
+		return Trued
 
 # if dcpd-map.py is run as the main function, i.e. via command line
 if __name__ == '__main__':
@@ -38,6 +55,6 @@ if __name__ == '__main__':
 	api = tweepy.API(auth)
 
 	myStreamListener = MyStreamListener()
-	stream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
+	stream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
 	# stream.filter(follow=['285198536'], async=True)
-	stream.filter(track=['#OregonUnderAttack'])
+	stream.filter(track=['#GunsInAmerica'])
