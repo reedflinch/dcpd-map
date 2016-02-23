@@ -1,7 +1,7 @@
 # dcpd-map
 Twitter application to map locations of incidents tweeted by @DCPoliceDept
 
-Still very much a work in progress -- bear with me!
+Still very much a work in progress!
 
 TODO:
 * exclude media attached to tweets -- only grab text
